@@ -1,0 +1,11 @@
+    public static void canTheyConnectInCertainTimeframe(String person1, String person2) {
+        Queue p1 = getShortestCompletePathGivenPersonUnderCertainTime(person1);
+        Queue p2 = getShortestCompletePathGivenPersonUnderCertainTime(person2);
+        for (Object object : p1) {
+            if (p2.contains(object)) {
+                System.out.println(person1 + " and " + person2 + " can meet in " + MAX_TIME + " minutes or less");
+                break;
+            }    
+        }
+        System.out.println(person1 + " and " + person2 + " cannot meet in " + MAX_TIME + " minutes or less");
+    }

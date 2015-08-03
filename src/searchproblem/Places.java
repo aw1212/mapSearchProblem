@@ -18,15 +18,11 @@ public class Places {
             this.places.add(place);
         }
     }
-    
+
     public Set<String> getPlaces() {
         return places;
     }
-    
-    public boolean getPlace(String name) {
-        return places.contains(name);
-    }
-    
+            
     public int getLength() {
         return places.size();
     }

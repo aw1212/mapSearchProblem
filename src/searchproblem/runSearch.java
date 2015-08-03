@@ -2,6 +2,7 @@ package searchproblem;
 
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Stack;
 
 public class runSearch {
     
@@ -9,10 +10,10 @@ public class runSearch {
     private static People ppl = new People();
     private static int currentTime = 0;
     private static final int MAX_DEPTH = 3;
-    private static final int MAX_TIME = 20;
+    private static final int MAX_TIME = 5;
     
     public static void init() {
-    
+        
         c.addDirectConnection("Babe", "Jabari", 10);
         c.addBranchingConnections("Caddie", "Zachariah", "Nada", 6, 4);
         c.addBranchingConnections("Dabney", "Rachael", "Ian", 9, 4);
@@ -31,7 +32,7 @@ public class runSearch {
         c.addBranchingConnections("Qiana", "Oakley", "Yaakov", 10, 2);
         c.addBranchingConnections("Rachael", "Xander", "Hadassah", 6, 8);
         c.addDirectConnection("Sabastian", "Ian", 9);
-        c.addBranchingConnections("Tab", "Dabeney", "Caddie", 6, 9);
+        c.addBranchingConnections("Tab", "Dabney", "Caddie", 6, 9);
         c.addBranchingConnections("Ula", "Yaakov", "Nada", 5, 4);
         c.addBranchingConnections("Vada", "Gabe", "Tab", 6, 7);
         c.addBranchingConnections("Wade", "Kaaren", "Yaakov", 4, 5);
@@ -45,8 +46,35 @@ public class runSearch {
         ppl.addPeopleAndOrigin("Gir", "Mabel");
 
     }
+            
+    public static void dfs(String person1, String person2) {
+        init();
+        Stack<String> unvisitedPlaces = new Stack<>();
+        Queue visitedPlaces = new LinkedList();
+        String destination = null;
+        boolean reachedEndPoint = false;
+        unvisitedPlaces.add(ppl.getOriginGivenPerson(person1));
+        while(!reachedEndPoint && !unvisitedPlaces.empty()) {
+            System.out.println("Unvisited places: " + unvisitedPlaces);
+            System.out.println("Visited places: " + visitedPlaces);
+            String currentPlace = unvisitedPlaces.pop();
+            if (!visitedPlaces.contains(currentPlace)) {
+                visitedPlaces.add(currentPlace);
+                unvisitedPlaces.addAll(c.getDestinations(currentPlace));
+                destination = currentPlace;
+            }
+            if (destination.equals("Mabel")) {
+                reachedEndPoint = true;
+                System.out.println("I've reached my destination!");
+            }
+        }
+        if (!reachedEndPoint) {
+            System.out.println("I could not reach my destination");
+        }
+        System.out.print("Visited path: " + visitedPlaces);
+    }
        
-    public static Queue search(String person, int max, String type) {
+    public static Queue shortestFullPathSearch(String person, int max, String type) {
         init();
         Queue places = new LinkedList();
         String origin = ppl.getOriginGivenPerson(person);
@@ -90,31 +118,20 @@ public class runSearch {
             System.out.println("Location: " + place);
         });
         return places;
-    }
-    
+    } 
     
     public static Queue getShortestCompletePathGivenPersonUnderCertainDepth(String person) {
-        return search(person, MAX_DEPTH, "depth");
+        return shortestFullPathSearch(person, MAX_DEPTH, "depth");
     }
 
     public static Queue getShortestCompletePathGivenPersonUnderCertainTime(String person) {
-        return search(person, MAX_TIME, "time");
+        return shortestFullPathSearch(person, MAX_TIME, "time");
     }
-    
-    public static void canTheyConnectInCertainTimeframe(String person1, String person2) {
-        Queue p1 = getShortestCompletePathGivenPersonUnderCertainTime(person1);
-        Queue p2 = getShortestCompletePathGivenPersonUnderCertainTime(person2);
-        for (Object object : p1) {
-            if (p2.contains(object)) {
-                System.out.println(person1 + " and " + person2 + " can meet in " + MAX_TIME + " minutes or less");
-                break;
-            }    
-        }
-        System.out.println(person1 + " and " + person2 + " cannot meet in " + MAX_TIME + " minutes or less");
-    }
-    
+       
     public static void main(String[] args) {
-        canTheyConnectInCertainTimeframe("Zim", "Gir");
+        //getShortestCompletePathGivenPersonUnderCertainTime("Zim");
+        //getShortestCompletePathGivenPersonUnderCertainDepth("Zim");
+        dfs("Zim", "Gir");
     }
     
 }

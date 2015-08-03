@@ -2,6 +2,8 @@ package searchproblem;
 
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Connections {
     
@@ -59,6 +61,15 @@ public class Connections {
             count += 1;
         }
         return (count>1);           
+    }
+    
+    public Set<String> getDestinations(String origin) {
+        Set<String> destinations = new HashSet<>();
+        HashMap<String, Integer> map = connections.get(origin);
+        for (HashMap.Entry<String,Integer> entry : map.entrySet()) {
+             destinations.add(entry.getKey());
+        }
+        return destinations;
     }
     
     public HashMap<String, HashMap<String, Integer>> getInitializedConnections() {
