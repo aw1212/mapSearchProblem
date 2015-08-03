@@ -1,9 +1,0 @@
-for(Object object : places) {
-    String place = (String) object;
-    System.out.println("Location: " + place);
-}
-        
-
-places.stream().map((object) -> (String) object).forEach((place) -> {
-    System.out.println("Location: " + place);
-});

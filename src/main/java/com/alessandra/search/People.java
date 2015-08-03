@@ -1,4 +1,4 @@
-package searchproblem;
+package com.alessandra.search;
 
 import java.util.HashMap;
 import java.util.Map;
