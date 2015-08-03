@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Stack;
 
-public class runSearch {
+public class Search {
     
     private static Connections c = new Connections();
     private static People ppl = new People();
