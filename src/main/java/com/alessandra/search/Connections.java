@@ -1,8 +1,11 @@
 package com.alessandra.search;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Set;
 
 public class Connections {
@@ -70,6 +73,24 @@ public class Connections {
              destinations.add(entry.getKey());
         }
         return destinations;
+    }
+    
+    public HashMap<String,Integer> getDestinationsAndTime(String origin) {
+        HashMap<String,Integer> destinations = new HashMap<>();
+        HashMap<String, Integer> map = connections.get(origin);
+        for (HashMap.Entry<String,Integer> entry : map.entrySet()) {
+             destinations.put(entry.getKey(), entry.getValue());
+        }
+        return destinations;
+    }
+    
+    public boolean isLegalConnection(String origin, String destination) {
+        HashMap<String, Integer> map = connections.get(origin);
+        List<Boolean> listy = new ArrayList<>();
+        for (HashMap.Entry<String,Integer> entry : map.entrySet()) {
+             listy.add(destination.equals(entry.getKey()));
+        }
+        return listy.contains(true);
     }
     
     public HashMap<String, HashMap<String, Integer>> getInitializedConnections() {
