@@ -1,16 +1,15 @@
 package com.alessandra.search;
 
-import static com.alessandra.search.Search.*;
-
 public class Main {
 
     public static void main(String[] args) {
+        Search search = new Search();
         //getShortestCompletePathGivenPersonUnderCertainTime("Zim");
         //getShortestCompletePathGivenPersonUnderCertainDepth("Zim");
-        //dfs("Gir", "Zim");
-        //getAllDestinationsWithTime("Zim");
+        //search.checkIfTwoPeopleCanMeetUsingDFS("Gir", "Zim");
+        //search.getAllDestinationsWithTime("Zim");
         //getAllDestinationsWithTime("Gir");
-        getShortestPathForPeople("Zim", "Gir");
+        search.getShortestPathForPeople("Zim", "Gir");
     }
 
 }
